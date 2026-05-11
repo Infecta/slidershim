@@ -305,22 +305,32 @@ impl ThreadJob for DivaSliderJob {
           }
         }
 
-        let mut send_lights = false;
-        let mut lights_buf = [0; 94];
+                let mut send_lights = false;
+        let mut lights_buf = [0; 97];
         {
           let mut lights_handle = self.state.lights.lock();
           // Send leds at least once a second to keep alive
           if lights_handle.dirty || self.last_lights.elapsed() > Duration::from_millis(1000) {
             send_lights = true;
-            lights_buf[0] = self.brightness;
-            for (buf_chunk, state_chunk) in lights_buf[1..94]
-              .chunks_mut(3)
-              .take(31)
-              .zip(lights_handle.ground.chunks(3).rev())
-            {
-              buf_chunk[0] = state_chunk[2];
-              buf_chunk[1] = state_chunk[0];
-              buf_chunk[2] = state_chunk[1];
+
+            if let Some(aprom_payload) = lights_handle.host_aprom_payload {
+              // Use pre-formatted host-aprom payload (97 bytes),
+              // but apply our config brightness value
+              lights_buf.copy_from_slice(&aprom_payload);
+              lights_buf[0] = self.brightness;
+            } else {
+              // Fall back to standard 94-byte LED conversion (padded to 97)
+              lights_buf[0] = self.brightness;
+              for (buf_chunk, state_chunk) in lights_buf[1..94]
+                .chunks_mut(3)
+                .take(31)
+                .zip(lights_handle.ground.chunks(3).rev())
+              {
+                buf_chunk[0] = state_chunk[2];
+                buf_chunk[1] = state_chunk[0];
+                buf_chunk[2] = state_chunk[1];
+              }
+              // bytes [94..97] remain zero (padding for aBRG[31])
             }
             lights_handle.dirty = false;
           }

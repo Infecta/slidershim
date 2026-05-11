@@ -455,6 +455,7 @@
           <option value="attract">Rainbow Attract Mode</option>
           <!-- <option value="websocket">Websocket</option> -->
           <option value="umgr-websocket">UMIGURI Websocket</option>
+          <option value="umgr-host-aprom">UMIGURI WS over host-aprom</option>
           <option value="serial">Serial</option>
         </select>
       </div>
@@ -570,7 +571,7 @@
         </div>
       </div>
     {/if}
-    {#if ledMode === "umgr-websocket"}
+        {#if ledMode === "umgr-websocket" || ledMode === "umgr-host-aprom"}
       <div class="row">
         <div class="label">UMIGURI Port</div>
         <div class="input">

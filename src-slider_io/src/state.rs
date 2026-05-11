@@ -68,6 +68,11 @@ pub struct SliderLights {
   /// Internal dirty flag used to indicate that new lighting data is available.
   pub dirty: bool,
 
+    /// Pre-formatted 97-byte host-aprom serial LED payload.
+  /// When `Some(...)`, DivaSliderJob will send this directly over serial
+  /// instead of doing its own LED conversion.
+  pub host_aprom_payload: Option<[u8; 97]>,
+
   /// To deprecate
   pub start: Instant,
 }
@@ -80,6 +85,7 @@ impl SliderLights {
       air_left: [0; 3 * 3],
       air_right: [0; 3 * 3],
       dirty: false,
+      host_aprom_payload: None,
       start: Instant::now(),
     }
   }
@@ -110,10 +116,11 @@ impl SliderLights {
     ];
   }
 
-  pub fn reset(&mut self) {
+    pub fn reset(&mut self) {
     self.ground.fill(0);
     self.air_left.fill(0);
     self.air_right.fill(0);
+    self.host_aprom_payload = None;
     self.dirty = true;
   }
 }

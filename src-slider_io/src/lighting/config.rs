@@ -80,7 +80,11 @@ pub enum LightsMode {
     faster: bool,
     url: String,
   },
-  UmgrWebsocket {
+    UmgrWebsocket {
+    faster: bool,
+    port: u16,
+  },
+  UmgrHostAprom {
     faster: bool,
     port: u16,
   },
@@ -143,7 +147,11 @@ impl LightsMode {
         faster: v["ledFaster"].as_bool()?,
         url: v["ledWebsocketUrl"].as_str()?.to_string(),
       },
-      "umgr-websocket" => LightsMode::UmgrWebsocket {
+            "umgr-websocket" => LightsMode::UmgrWebsocket {
+        faster: v["ledFaster"].as_bool()?,
+        port: u16::try_from(v["ledUmgrWebsocketPort"].as_i64()?).ok()?,
+      },
+      "umgr-host-aprom" => LightsMode::UmgrHostAprom {
         faster: v["ledFaster"].as_bool()?,
         port: u16::try_from(v["ledUmgrWebsocketPort"].as_i64()?).ok()?,
       },

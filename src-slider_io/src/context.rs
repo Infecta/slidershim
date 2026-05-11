@@ -5,7 +5,7 @@ use std::sync::{atomic::Ordering, Arc};
 use crate::{
   config::Config,
   device::{brokenithm::BrokenithmJob, config::DeviceMode, diva::DivaSliderJob, hid::HidJob},
-  lighting::{config::LightsMode, lighting::LightsJob, umgr_websocket::UmgrWebsocketJob},
+  lighting::{config::LightsMode, lighting::LightsJob, umgr_host_aprom::UmgrHostApromJob, umgr_websocket::UmgrWebsocketJob},
   output::{config::OutputMode, output::OutputJob},
   shared::{
     utils::LoopTimer,
@@ -93,11 +93,18 @@ impl Context {
     };
     let (lights_worker, lights_haltable_worker) = match &config.lights_mode {
       LightsMode::None => (None, None),
-      LightsMode::UmgrWebsocket { faster, port } => (
+            LightsMode::UmgrWebsocket { faster, port } => (
         None,
         Some(AsyncHaltableWorker::new(
           "lights",
           UmgrWebsocketJob::new(&state, faster, port),
+        )),
+      ),
+      LightsMode::UmgrHostAprom { faster, port } => (
+        None,
+        Some(AsyncHaltableWorker::new(
+          "lights",
+          UmgrHostApromJob::new(&state, faster, port),
         )),
       ),
       _ => {
