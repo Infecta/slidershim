@@ -309,8 +309,10 @@ impl ThreadJob for DivaSliderJob {
         let mut lights_buf = [0; 97];
         {
           let mut lights_handle = self.state.lights.lock();
-          // Send leds at least once a second to keep alive
-          if lights_handle.dirty || self.last_lights.elapsed() > Duration::from_millis(1000) {
+                    // Send leds at a consistent rate to keep the firmware's LED pipeline fed.
+          // When no UMIGURI WebSocket is connected, this sends all-off packets at ~15 Hz
+          // to prevent the firmware from falling back to its internal demo pattern.
+          if lights_handle.dirty || self.last_lights.elapsed() > Duration::from_millis(66) {
             send_lights = true;
 
             if let Some(aprom_payload) = lights_handle.host_aprom_payload {
