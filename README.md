@@ -1,3 +1,7 @@
+<img align="right" alt="logo" width="100" height="100" src="public/icon.png">
+
+# [slidershim](https://github.com/4yn/slidershim)
+
 > [!WARNING]
 > This project is a quick and dirty mod to bridge the umiguri ws into a host-aprom tasoller
 >
@@ -5,10 +9,6 @@
 > Most of the code for bridging UMIGURI -> host-aprom is referenced from [Mayo Inoue's UMIGURI-LED-BRIDGE](https://github.com/Curfewshino/UMIGURI-LED-Bridge)
 >
 > The rest of this README remians untouched.
-> 
-<img align="right" alt="logo" width="100" height="100" src="public/icon.png">
-
-# [slidershim](https://github.com/4yn/slidershim)
 
 Software adapter for various Chunithm slider controllers with a built-in Brokenithm web controller. Has support for keyboard/gamepad output and LED lighting. Requires Windows 8 or later.
 
