@@ -1,3 +1,11 @@
+> [!WARNING]
+> This project is a quick and dirty mod to bridge the umiguri ws into a host-aprom tasoller
+>
+> I have no plans into merging this into the main repo but if anyone wants to reference the source for future use, feel free!
+> Most of the code for bridging UMIGURI -> host-aprom is referenced from [Mayo Inoue's UMIGURI-LED-BRIDGE](https://github.com/Curfewshino/UMIGURI-LED-Bridge)
+>
+> The rest of this README remians untouched.
+> 
 <img align="right" alt="logo" width="100" height="100" src="public/icon.png">
 
 # [slidershim](https://github.com/4yn/slidershim)
