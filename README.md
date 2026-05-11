@@ -8,7 +8,7 @@
 > I have no plans into merging this into the main repo but if anyone wants to reference the source for future use, feel free!
 > Most of the code for bridging UMIGURI -> host-aprom is referenced from [Mayo Inoue's UMIGURI-LED-BRIDGE](https://github.com/Curfewshino/UMIGURI-LED-Bridge)
 >
-> The rest of this README remians untouched.
+> The rest of this README remains untouched.
 
 Software adapter for various Chunithm slider controllers with a built-in Brokenithm web controller. Has support for keyboard/gamepad output and LED lighting. Requires Windows 8 or later.
 
